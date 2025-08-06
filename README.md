@@ -65,6 +65,27 @@ kill it
 kill <PID>
 
 
+# Azure deployment ( CI/CD )
+
+## depoly through the CI/CD
+
+Go to the azure portal
+
+create a azure web app 
+go to app services and create web application
+
+give resource group
+choose a plan
+give web app name
+choose runtime stack - add python 
+after next to the depolyment 
+choose git hub and give the repo name
+review+create
+
+
+
+
+
 
 
 
