@@ -1,93 +1,126 @@
-## End to end machine learning project 
+# End-to-End Machine Learning Project
 
-## Add venv environment using 
+This repository contains a complete **End-to-End Machine Learning Project** setup with local development, CI/CD pipeline, and deployment options using **Azure** and **Docker**.
+
+---
+
+## 📦 Environment Setup
+
+### Create Virtual Environment (using Conda)
+```bash
 conda create -p venv python=3.10 -y
+```
 
-and activate 
-
+### Activate Virtual Environment
+```bash
 conda activate venv
-
+```
+Or, if using an absolute path:
+```bash
 conda activate "D:\Personal Project_certificate work Space(Projects )\ML_project_repo\venv"
+```
 
+---
 
-## install libraries
+## 📚 Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
-pip install -r requirments.txt
+---
 
+## 🚀 CI/CD with EC2
 
-## CI/CD 
-
-to activate the ec2
-
-### at the initial
+### 1️⃣ Initial Setup
+```powershell
 icacls .\flask-key.pem /inheritance:r
 icacls .\flask-key.pem /grant:r "${env:USERNAME}:(R)"
+```
+Connect to EC2 instance:
+```bash
+ssh -i "flask-key.pem" ubuntu@<public_ipv4_address>
+```
 
-ssh -i "flask-key.pem" ubuntu@<public ipv4 address> - this can use after initiate
+Update packages:
+```bash
+sudo apt update && sudo apt upgrade -y
+```
 
-sudo apt update && sudo apt upgrade -y 
-
-### create virtual env
+### 2️⃣ Create Virtual Environment on EC2
+```bash
 sudo apt install python3 python3-pip python3-venv git -y
+python3 --version
+pip3 --version
+```
 
-check python version - python3 --version
-check pip version - pip3 --version
+---
 
-### cloning git repo 
- git clone https://github.com/Binuda-Dewhan/ML_project.git
-
-### go to the repo folder 
+### 3️⃣ Clone Repository & Setup
+```bash
+git clone https://github.com/Binuda-Dewhan/ML_project.git
 cd ML_project
 python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-activate virtual environment - source venv/bin/activate
+---
 
-install requirement (libraries) - pip install -r requirements.txt
-
-## run the application 
+### 4️⃣ Run the Application
+```bash
 python app.py
+```
 
+---
 
-## run the app.py after closing (optional) - with nohup
+### (Optional) Run Flask in Background with `nohup`
+```bash
+nohup python application.py &
+```
+To stop Flask:
 
-### Run Flask in the Background with nohup
-To keep Flask running even after closing SSH:
-
-nohup python application.py &     - this will runs in background, and output goes to nohup.out
-
-### To Stop the Flask Server
-If it's running in foreground, press CTRL + C.
-
-### If it's running in background, Find the process ID (PID) and stop it:
-ps aux | grep python 
-
-kill it 
+**If running in foreground** → Press `CTRL + C`  
+**If running in background** → Find and kill process:
+```bash
+ps aux | grep python
 kill <PID>
+```
 
+---
 
-# Azure deployment ( CI/CD )
+## ☁️ Azure Deployment (CI/CD)
 
-## depoly through the CI/CD
+1. Go to **Azure Portal** → Create **Azure Web App**
+2. Fill in:
+   - Resource Group
+   - App Service Plan
+   - Web App Name
+   - Runtime Stack → Python
+3. Under **Deployment**, select **GitHub** and provide repository name
+4. Click **Review + Create**
 
-Go to the azure portal
+---
 
-create a azure web app 
-go to app services and create web application
+## 🐳 Docker Deployment with Azure Container Registry
 
-give resource group
-choose a plan
-give web app name
-choose runtime stack - add python 
-after next to the depolyment 
-choose git hub and give the repo name
-review+create
+### Build Docker Image
+```bash
+docker build -t testdockerbinu.azurecr.io/mltest:latest .
+```
 
+### Login to Azure Container Registry
+```bash
+docker login testdockerbinu.azurecr.io
+```
 
+### Push Image
+```bash
+docker push testdockerbinu.azurecr.io/mltest:latest
+```
 
+---
 
-
-
-
-
-
-
+## 📄 Notes
+- Replace `<public_ipv4_address>` with your actual EC2 instance IP.
+- Make sure **requirements.txt** file is correct and up to date.
+- Ensure you have **Docker** and **Azure CLI** installed for container deployment.
