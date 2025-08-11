@@ -1,7 +1,8 @@
 # End-to-End Machine Learning Project
 
-This repository contains a complete **End-to-End Machine Learning Project** setup with local development, CI/CD pipeline, and deployment options using **Azure** and **Docker**.
-
+This repository contains a **fully modular End-to-End Machine Learning Project** designed to **predict student performance**. 
+It covers the entire lifecycle — starting from the **data ingestion pipeline**, through **ETL processes**, **model training**, and **evaluation**, 
+to **deployment** with **CI/CD** using **Docker** for containerization and deploy using **Azure** web app ,**AWS** EC2.
 ---
 
 ## 📦 Environment Setup
